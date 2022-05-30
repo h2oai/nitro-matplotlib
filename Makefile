@@ -20,8 +20,8 @@ clean: purge ## Clean everything
 	rm -rf venv
 
 release: # Tag and release on Github
-	# git tag v$(VERSION)
-	# git push origin && git push origin --tags
+	git tag v$(VERSION)
+	git push origin && git push origin --tags
 	gh release create v$(VERSION) dist/h2o_nitro_matplotlib-$(VERSION)-py3-none-any.whl
 
 help: ## List all make tasks
