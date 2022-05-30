@@ -13,11 +13,16 @@ setup: clean ## Install dependencies
 	./venv/bin/python -m pip install -r requirements.txt
 	./venv/bin/python -m pip install --editable .
 
-publish: ## Publish wheel
+publish: build ## Publish wheel
 	./venv/bin/python -m twine upload dist/*
 
 clean: purge ## Clean everything
 	rm -rf venv
+
+release: # Tag and release on Github
+	# git tag v$(VERSION)
+	# git push origin && git push origin --tags
+	gh release create v$(VERSION) dist/h2o_nitro_matplotlib-$(VERSION)-py3-none-any.whl
 
 help: ## List all make tasks
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
