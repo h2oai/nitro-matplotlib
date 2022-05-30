@@ -1,0 +1,7 @@
+setuptools
+wheel
+twine
+matplotlib
+h2o-nitro>=0.8.2
+flake8==4.0.1
+pytest==7.0.1
