@@ -12,11 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Optional
 import base64
 from io import BytesIO
+import matplotlib
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 
 from h2o_nitro import box, Box, Plugin, Script
+
+# Use the Anti-Grain Geometry backend, since we're only going to use non-interactive PNG images
+# Ref: https://matplotlib.org/3.5.0/users/explain/backends.html#the-builtin-backends
+matplotlib.use('AGG')
 
 # Javascript function for embedding the Matplotlib plot.
 # Here, we export one function called render(), which we can later invoke from our Python box().
@@ -43,19 +50,28 @@ def matplotlib_plugin():
     )
 
 
-def matplotlib_box(figure: Figure) -> Box:
+def matplotlib_box(figure: Optional[Figure] = None) -> Box:
     """
     Creates a Nitro box from a Matplotlib Figure.
 
-    Warning: Do not use pyplot!
+    If a figure is not provided, the global matplotlib.pyplot instance is used as the source.
+    This is useful when you're using something like Seaborn, which relies on matplotlib.pyplot, but not optimal
+    when used inside a web app.
+
+    **Warning: Avoid pyplot if possible!**
     pyplot maintains references to the opened figures to make show() work, but this will cause memory leaks
-    unless the figures are properly closed
+    unless the figures are properly closed.
 
     :param figure: A Matplotlib Figure
     :return: A box
     """
     # Reference: https://matplotlib.org/3.5.0/gallery/user_interfaces/web_application_server_sgskip.html
     buf = BytesIO()
-    figure.savefig(buf, format="png")
+    if figure is None:
+        plt.savefig(buf, format="png")
+        plt.close("all")  # Attempt to avoid memory leaks
+    else:
+        figure.savefig(buf, format="png")
+
     png = base64.b64encode(buf.getbuffer()).decode("ascii")
     return box(mode='plugin:matplotlib.render', data=dict(png=png))

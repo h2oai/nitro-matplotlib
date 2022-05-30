@@ -1,17 +1,20 @@
 # Matplotlib plugin for H2O Nitro
 
-This plugin lets you use [Matplotlib](https://matplotlib.org/stable/index.html) visualizations
-in [Nitro](https://nitro.h2o.ai)
-apps.
+This plugin lets you use [Matplotlib](https://matplotlib.org/stable/index.html)
+and [Seaborn](https://seaborn.pydata.org/) visualizations in [Nitro](https://nitro.h2o.ai) apps.
 
-**Warning: Do not use pyplot!** pyplot maintains references to the opened figures to make show() work, but this will
-cause memory leaks unless the figures are properly closed[1].
+**Warning: Try to avoid pyplot in web apps!** pyplot maintains references to the opened figures to make show() work, but
+this will cause memory leaks unless the figures are properly closed[^1].
+
+[^1]: See [Matplotlib docs on embedding](https://matplotlib.org/3.5.0/gallery/user_interfaces/web_application_server_sgskip.html)
 
 ## Demo
 
 [View source](example).
 
-![Demo](demo.gif)
+![Matplotlib](demo_matplotlib.gif)
+
+![Seaborn](demo_seaborn.gif)
 
 ## Install
 
@@ -23,7 +26,10 @@ pip install h2o-nitro-matplotlib
 
 1. Import `matplotlib_plugin` and `matplotlib_box` from `h2o_nitro_matplotlib`.
 2. Add `matplotlib_plugin()` to your Nitro app.
-3. Use `matplotlib_box(model)` to render Matplotlib models (figures, widgets, and so on).
+3. Use `matplotlib_box(figure)` to render Matplotlib figures, or `matplotlib_box()` (without arguments) to render the
+   current global `matplotlib.pyplot`.
+
+.
 
 ```py 
 from matplotlib.figure import Figure
@@ -60,6 +66,4 @@ def make_plot():
 
 ```
 
-[^1]: See [Matplotlib docs on embedding](https://matplotlib.org/3.5.0/gallery/user_interfaces/web_application_server_sgskip.html)
-.
 
