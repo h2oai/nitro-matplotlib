@@ -14,5 +14,5 @@
 
 from .plugin import matplotlib_plugin, matplotlib_box
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
