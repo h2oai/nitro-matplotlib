@@ -29,7 +29,7 @@ nitro = View(
     main,
     title='Nitro + Matplotlib',
     caption='A minimal example',
-    plugins=[matplotlib_plugin()],  # Include the Bokeh plugin
+    plugins=[matplotlib_plugin()],  # Include the matplotlib plugin
 )
 
 
