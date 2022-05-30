@@ -20,7 +20,7 @@ def main(view: View):
     view('## Line plots', matplotlib_box(plot_simple()))
     view('## Signal coherence', matplotlib_box(plot_line()))
     view('## Bars in polar coords', matplotlib_box(plot_polar()))
-    view('## Color map demo', matplotlib_box(plot_colormap()))
+    view('## Color map', matplotlib_box(plot_colormap()))
     view('## Surface plot', matplotlib_box(plot_surface()))
 
 

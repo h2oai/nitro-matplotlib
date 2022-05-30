@@ -1,6 +1,6 @@
 # Matplotlib plugin for H2O Nitro
 
-This plugin lets you use [Matplotlib](https://docs.matplotlib.org/en/latest/) visualizations
+This plugin lets you use [Matplotlib](https://matplotlib.org/stable/index.html) visualizations
 in [Nitro](https://nitro.h2o.ai)
 apps.
 
