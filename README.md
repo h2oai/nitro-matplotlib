@@ -1,7 +1,7 @@
 # Matplotlib plugin for H2O Nitro
 
 This plugin lets you use [Matplotlib](https://matplotlib.org/stable/index.html)
-and [Seaborn](https://seaborn.pydata.org/) visualizations in [Nitro](https://nitro.h2o.ai) apps.
+and [Seaborn](https://seaborn.pydata.org/) visualizations in [Nitro](https://github.com/h2oai/nitro) apps.
 
 **Warning: Try to avoid pyplot in web apps!** pyplot maintains references to the opened figures to make show() work, but
 this will cause memory leaks unless the figures are properly closed[^1].
