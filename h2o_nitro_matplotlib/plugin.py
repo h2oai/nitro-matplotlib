@@ -74,4 +74,4 @@ def matplotlib_box(figure: Optional[Figure] = None) -> Box:
         figure.savefig(buf, format="png")
 
     png = base64.b64encode(buf.getbuffer()).decode("ascii")
-    return box(mode='plugin:matplotlib.render', data=dict(png=png))
+    return box(mode='plugin:matplotlib.render', data=dict(png=png), ignore=True)

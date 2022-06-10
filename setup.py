@@ -38,7 +38,7 @@ setup(
     python_requires=">=3.7",
     install_requires=[
         "matplotlib",
-        "h2o-nitro>=0.8.2",
+        "h2o-nitro>=0.9.2",
     ],
     license_files=('LICENSE',),
     classifiers=[
