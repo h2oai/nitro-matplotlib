@@ -1,8 +1,0 @@
-matplotlib
-seaborn
-numpy
-pandas
-Flask>=2
-simple-websocket>=0.5
-h2o-nitro>=0.8.2
-h2o-nitro-matplotlib>=0.1
