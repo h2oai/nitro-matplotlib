@@ -15,7 +15,6 @@
 # matplotlib
 # numpy
 # pandas
-# seaborn
 # Flask>=2
 # simple-websocket>=0.5
 # h2o-nitro>=0.8.2
