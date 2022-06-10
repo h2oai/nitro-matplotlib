@@ -62,3 +62,14 @@ ax.legend()  # Add a legend.
 # Display the figure:
 view(matplotlib_box(fig))
 ```
+
+## Change Log
+
+- v0.2.1 - Jun 09, 2022
+  - Fixed
+     - Don't return value from plots.
+- v0.2.0 - May 30, 2022
+   - Added
+      - Use global pyplot if a figure is not passed (for Seaborn support).
+- v0.1.0 - May 29, 2022
+  - Initial Version
