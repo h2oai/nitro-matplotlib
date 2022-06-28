@@ -17,7 +17,7 @@
 # pandas
 # Flask>=2
 # simple-websocket>=0.5
-# h2o-nitro>=0.8.2
+# h2o-nitro[web]
 # h2o-nitro-matplotlib>=0.1
 # EOF
 # RUN python -m pip install -r requirements.txt
@@ -37,7 +37,8 @@ from matplotlib.colors import LightSource
 
 # ----- Nitro app -----
 
-from h2o_nitro import View, web_directory
+from h2o_nitro import View
+from h2o_nitro_web import web_directory
 from h2o_nitro_matplotlib import matplotlib_plugin, matplotlib_box
 
 
