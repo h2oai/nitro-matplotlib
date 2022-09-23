@@ -17,7 +17,6 @@ import base64
 from io import BytesIO
 import matplotlib
 from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
 
 from h2o_nitro import box, Box, Plugin, Script
 
@@ -68,6 +67,11 @@ def matplotlib_box(figure: Optional[Figure] = None) -> Box:
     # Reference: https://matplotlib.org/3.5.0/gallery/user_interfaces/web_application_server_sgskip.html
     buf = BytesIO()
     if figure is None:
+        # Import pyplot just in time.
+        # Importing pyplot at the top level causes hangs on some machines at
+        # in matplotlib.cbook _get_running_interactive_framework()
+        # Not deterministic. Cause unknown.
+        import matplotlib.pyplot as plt
         plt.savefig(buf, format="png")
         plt.close("all")  # Attempt to avoid memory leaks
     else:
