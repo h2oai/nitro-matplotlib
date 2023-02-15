@@ -24,7 +24,6 @@ jobs:
           python-version: "3.8"
 
       - name: Snyk scan for Python 3.8 dependencies
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
