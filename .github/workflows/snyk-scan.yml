@@ -1,0 +1,56 @@
+name: Snyk Security Vulnerability Scan
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+  push:
+    tags:
+      - 'v.[0-9]+.[0-100]+.[0-1000]+'
+    branches:
+      - 'main'
+      - 'devops/snyk-integration'
+
+jobs:
+  snyk_scan_test:
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: snyk/actions/setup@master
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+
+      - name: Snyk scan for Python 3.8 dependencies
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          pip install -r requirements.txt            
+          snyk test -d --fail-on=all --file=requirements.txt --package-manager=pip --command=python3 --skip-unresolved
+
+  snyk_scan_monitor:
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract github branch/tag name
+        shell: bash
+        run: echo "ref=$(echo ${GITHUB_REF##*/})" >> $GITHUB_OUTPUT
+        id: extract_ref
+
+      - uses: actions/checkout@master
+
+      - uses: snyk/actions/setup@master
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      
+      - name: Snyk scan for Python 3.8 dependencies
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          pip install -r requirements.txt            
+          snyk monitor --command=python3 --skip-unresolved --package-manager=pip --org=nitro-cf8 --remote-repo-url=nitro-matplotlib/${{steps.extract_ref.outputs.ref}} --file=requirements.txt  --project-name=NITRO/nitro-matplotlib/${{steps.extract_ref.outputs.ref}}/requirements.txt  -d --fail-on=all
