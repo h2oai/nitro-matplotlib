@@ -18,11 +18,19 @@ jobs:
 
       - uses: snyk/actions/setup@master
 
+      - name: Check changed Deps files
+        uses: tj-actions/changed-files@v35
+        id: changed-files
+        with:
+          files: |
+            **/requirements.txt
+
       - uses: actions/setup-python@v4
         with:
           python-version: "3.8"
 
       - name: Snyk scan for Python 3.8 dependencies
+        if: steps.changed-files.outputs.any_changed == 'true'
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
